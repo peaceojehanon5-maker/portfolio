@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peace Ojehanon — Network, Data & Cloud</title>
+<meta name="description" content="Portfolio of Peace Ojehanon: IT operations professional working across network operations, data engineering, cloud and technical support. MSc Big Data Technologies, BCS member, Glasgow UK.">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PEACE OJEHANON — PORTFOLIO
+   Theme: "operations console" — IBM Plex Mono labels read like
+   a network log; amber accent is a status-light glow. Grounded
+   in Peace's NOC / network-engineering world.
+   ============================================================ */
+
+:root{
+  --paper:#F5F5F1;        /* page background, barely warm */
+  --card:#FFFFFF;
+  --ink:#16202B;          /* body text */
+  --navy:#1F3864;         /* brand (matches CV), headings, buttons */
+  --navy-soft:#38507F;    /* secondary navy */
+  --amber:#C97D1E;        /* signal accent (text-safe) */
+  --amber-bright:#F2A63C; /* node glow */
+  --line:#E3E2DC;         /* hairlines */
+  --muted:#5C6672;        /* captions, meta */
+  --maxw:1080px;
+  --radius:14px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+
+body{
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.65;
+  font-size:1.02rem;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+a{color:var(--navy);text-decoration:none}
+
+/* mono utility / eyebrow labels — the "console" texture */
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.74rem;
+  letter-spacing:.04em;
+  color:var(--amber);
+  text-transform:lowercase;
+  margin-bottom:14px;
+  display:block;
+}
+.mono{font-family:"IBM Plex Mono",monospace}
+
+h1,h2,h3{font-family:"Space Grotesk",sans-serif;color:var(--navy);line-height:1.12;letter-spacing:-.01em}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.5em;
+  font-family:"IBM Plex Mono",monospace;font-size:.85rem;letter-spacing:.02em;
+  padding:.72em 1.2em;border-radius:999px;border:1.5px solid var(--navy);
+  transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+  cursor:pointer;background:transparent;color:var(--navy);
+}
+.btn--solid{background:var(--navy);color:#fff}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(31,56,100,.18)}
+.btn--solid:hover{background:#16294d}
+.btn .arw{transition:transform .15s ease}
+.btn:hover .arw{transform:translate(2px,-2px)}
+
+/* ---------- header / nav ---------- */
+header{position:sticky;top:0;z-index:50;transition:background .25s ease,border-color .25s ease,backdrop-filter .25s ease;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(245,245,241,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:"Space Grotesk";font-weight:600;color:var(--navy);font-size:1.05rem;letter-spacing:-.01em}
+.brand .dot{color:var(--amber)}
+.navlinks{display:flex;gap:26px;align-items:center}
+.navlinks a{font-family:"IBM Plex Mono",monospace;font-size:.82rem;color:var(--muted);position:relative;padding:4px 0}
+.navlinks a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--amber);transition:width .2s ease}
+.navlinks a:hover,.navlinks a.active{color:var(--navy)}
+.navlinks a:hover::after,.navlinks a.active::after{width:100%}
+.menu-btn{display:none;background:none;border:1.5px solid var(--line);border-radius:8px;padding:8px;cursor:pointer}
+.menu-btn span{display:block;width:20px;height:2px;background:var(--navy);margin:4px 0;transition:.2s}
+
+/* ---------- hero ---------- */
+.hero{padding:64px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+.hero h1{font-size:clamp(2.5rem,6vw,4.2rem);font-weight:700;margin:6px 0 0}
+.hero .tagline{font-family:"Space Grotesk";font-weight:500;color:var(--ink);font-size:clamp(1.15rem,2.4vw,1.5rem);line-height:1.35;margin:18px 0 16px;max-width:30ch}
+.hero p.lede{color:var(--muted);max-width:46ch;margin-bottom:26px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:30px}
+.statusbar{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:10px 18px;border-top:1px solid var(--line);padding-top:18px}
+.statusbar b{color:var(--navy);font-weight:500}
+.statusbar .sep{color:var(--amber)}
+
+/* topology diagram */
+.topo{width:100%;height:auto;max-width:440px;margin-left:auto;display:block}
+.topo .lnk{stroke:var(--navy-soft);stroke-width:1.4;opacity:.32;fill:none}
+.topo .lnk.d{stroke-dasharray:4 5}
+.topo .node{fill:#fff;stroke:var(--navy);stroke-width:1.6}
+.topo .hub{fill:var(--navy);stroke:none}
+.topo .live{fill:var(--amber-bright);stroke:none}
+.topo .lbl{font-family:"IBM Plex Mono",monospace;font-size:8.5px;fill:var(--navy-soft);opacity:.62;letter-spacing:.02em}
+.topo .halo{fill:var(--amber-bright);opacity:.0}
+@media (prefers-reduced-motion: no-preference){
+  .topo .halo{animation:pulse 2.8s ease-in-out infinite}
+  .topo .halo.h2{animation-delay:.9s}
+  .topo .halo.h3{animation-delay:1.7s}
+}
+@keyframes pulse{0%,100%{opacity:0;transform:scale(.6)}45%{opacity:.5;transform:scale(1.25)}}
+.topo .halo{transform-box:fill-box;transform-origin:center}
+
+/* ---------- generic section ---------- */
+section{padding:62px 0;border-top:1px solid var(--line)}
+.sec-head{max-width:60ch;margin-bottom:38px}
+.sec-head h2{font-size:clamp(1.7rem,3.6vw,2.35rem);font-weight:600}
+.sec-head p{color:var(--muted);margin-top:12px}
+
+/* reveal animation (safe without JS / reduced motion) */
+.reveal{opacity:1}
+@media (prefers-reduced-motion: no-preference){
+  html.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  html.js .reveal.is-visible{opacity:1;transform:none}
+}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
+.about p{margin-bottom:16px;max-width:62ch}
+.about .pull{font-family:"Space Grotesk";font-weight:500;color:var(--navy);font-size:1.05rem;line-height:1.5}
+.factlist{font-family:"IBM Plex Mono",monospace;font-size:.86rem;border-left:2px solid var(--amber);padding-left:18px;align-self:start}
+.factlist div{padding:7px 0;color:var(--muted)}
+.factlist b{color:var(--navy);font-weight:500;display:block;font-size:.78rem;letter-spacing:.03em}
+
+/* ---------- skills ---------- */
+.skillgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.skillcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 20px;transition:border-color .2s ease,transform .2s ease}
+.skillcard:hover{border-color:var(--navy-soft);transform:translateY(-2px)}
+.skillcard h3{font-size:1.02rem;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.skillcard h3::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber);flex:none}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--navy);background:#EEF1F6;border:1px solid #E0E5EE;border-radius:7px;padding:4px 9px}
+
+/* ---------- timeline ---------- */
+.timeline{position:relative;margin-left:6px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;padding:0 0 30px 38px}
+.tl-item::before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;background:var(--paper);border:3px solid var(--navy)}
+.tl-item.study::before{border-color:var(--amber)}
+.tl-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:3px}
+.tl-top h3{font-size:1.08rem;font-weight:600}
+.tl-date{font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--muted);margin-left:auto}
+.tl-org{font-family:"IBM Plex Mono",monospace;font-size:.82rem;color:var(--amber);margin-bottom:8px}
+.tl-item p{color:var(--muted);max-width:64ch;font-size:.97rem}
+.kind{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:5px;border:1px solid var(--line);color:var(--muted)}
+.kind.work{color:var(--navy);border-color:#C7D0E0;background:#EEF1F6}
+.kind.study{color:var(--amber);border-color:#EAD7BD;background:#FBF3E7}
+
+/* ---------- projects ---------- */
+.projgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.proj{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.proj:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(22,32,43,.08);border-color:var(--navy-soft)}
+.proj .meta{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--amber);display:flex;justify-content:space-between;margin-bottom:12px;letter-spacing:.02em}
+.proj .meta .yr{color:var(--muted)}
+.proj h3{font-size:1.18rem;font-weight:600;margin-bottom:10px;line-height:1.2}
+.proj p{color:var(--ink);font-size:.95rem;margin-bottom:14px}
+.proj p .note{color:var(--muted);font-style:italic}
+.proj .tags{margin-top:auto}
+.proj .links{display:flex;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.proj .links a{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--navy);display:inline-flex;align-items:center;gap:5px;border-bottom:1px solid transparent;transition:color .15s ease,border-color .15s ease}
+.proj .links a:hover{color:var(--amber);border-bottom-color:var(--amber)}
+.proj.featured{border-color:var(--amber)}
+.live-badge{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--amber);border-radius:5px;padding:3px 8px;display:inline-flex;align-items:center;gap:5px}
+.live-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff}
+
+/* ---------- certifications ---------- */
+.certgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.cert{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:15px 17px}
+.cert .yr{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--amber);flex:none;padding-top:1px}
+.cert .nm{font-weight:500;font-size:.95rem;line-height:1.3}
+.cert .iss{display:block;font-size:.82rem;color:var(--muted);font-weight:400;margin-top:2px}
+.certnote{font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--muted);margin-top:18px}
+
+/* ---------- writing ---------- */
+.write-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 28px;margin-bottom:24px}
+.write-list a{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line);color:var(--ink);transition:color .15s ease}
+.write-list a:hover{color:var(--amber)}
+.write-list .n{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--amber);flex:none}
+.write-list .t{font-size:.95rem}
+
+/* ---------- contact ---------- */
+.contact{text-align:center;border-top:1px solid var(--line)}
+.contact h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;max-width:18ch;margin:0 auto 14px}
+.contact p{color:var(--muted);max-width:46ch;margin:0 auto 28px}
+.contact-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--line);padding:30px 0 40px}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.foot .mono{font-size:.76rem;color:var(--muted)}
+.foot .brand{font-size:1rem}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:28px}
+  .topo{max-width:340px;margin:0 auto}
+  .about-grid{grid-template-columns:1fr;gap:26px}
+  .skillgrid,.projgrid,.certgrid,.write-list{grid-template-columns:1fr}
+  .navlinks{position:fixed;inset:64px 0 auto 0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:8px 24px 18px;display:none}
+  .navlinks.open{display:flex}
+  .navlinks a{padding:11px 0;width:100%;border-bottom:1px solid var(--line)}
+  .navlinks a::after{display:none}
+  .menu-btn{display:block}
+  .tl-date{margin-left:0;width:100%;order:3}
+}
+
+/* focus visibility */
+a:focus-visible,.btn:focus-visible,.menu-btn:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand">Peace Ojehanon<span class="dot">.</span></a>
+    <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="navlinks" id="nav">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#writing">writing</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" style="border-top:none">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">// network operations · data · cloud</span>
+      <h1>Peace Ojehanon</h1>
+      <p class="tagline">I keep networks, data, and the people who rely on them connected.</p>
+      <p class="lede">IT operations professional with six years across network engineering, technical support and data work — from a Lagos ISP serving millions to a Glasgow MSc in Big Data Technologies.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn--solid">View projects <span class="arw">↗</span></a>
+        <a href="./Peace_Ojehanon_CV.pdf" class="btn" download>Download CV</a>
+        <a href="#contact" class="btn">Get in touch</a>
+      </div>
+      <div class="statusbar">
+        <span><b>Glasgow, UK</b></span><span class="sep">·</span>
+        <span>MSc Big Data Technologies</span><span class="sep">·</span>
+        <span>BCS Professional Member</span><span class="sep">·</span>
+        <span>MikroTik MTCNA</span>
+      </div>
+    </div>
+    <div>
+      <svg class="topo" viewBox="0 0 440 380" role="img" aria-label="A network topology diagram: a central core node linked to nodes labelled fibre, base station, NOC, AMS-IX, MikroTik and OSPF, with several links shown as live.">
+        <!-- links -->
+        <path class="lnk" d="M220 190 L95 90"/>
+        <path class="lnk" d="M220 190 L355 80"/>
+        <path class="lnk" d="M220 190 L385 215"/>
+        <path class="lnk d" d="M220 190 L300 320"/>
+        <path class="lnk" d="M220 190 L120 315"/>
+        <path class="lnk d" d="M220 190 L62 200"/>
+        <path class="lnk d" d="M95 90 L355 80"/>
+        <path class="lnk d" d="M385 215 L355 80"/>
+        <path class="lnk d" d="M120 315 L300 320"/>
+        <!-- halos for live nodes -->
+        <circle class="halo" cx="355" cy="80" r="13"/>
+        <circle class="halo h2" cx="300" cy="320" r="13"/>
+        <circle class="halo h3" cx="62" cy="200" r="13"/>
+        <!-- nodes -->
+        <circle class="node" cx="95" cy="90" r="8"/>
+        <circle class="live" cx="355" cy="80" r="8"/>
+        <circle class="node" cx="385" cy="215" r="8"/>
+        <circle class="live" cx="300" cy="320" r="8"/>
+        <circle class="node" cx="120" cy="315" r="8"/>
+        <circle class="live" cx="62" cy="200" r="8"/>
+        <!-- hub -->
+        <circle class="hub" cx="220" cy="190" r="21"/>
+        <circle cx="220" cy="190" r="7" fill="#fff"/>
+        <!-- labels -->
+        <text class="lbl" x="95"  y="74"  text-anchor="middle">fibre</text>
+        <text class="lbl" x="355" y="64"  text-anchor="middle">base&#8202;stn</text>
+        <text class="lbl" x="402" y="218" text-anchor="start">noc</text>
+        <text class="lbl" x="300" y="342" text-anchor="middle">ams-ix</text>
+        <text class="lbl" x="120" y="337" text-anchor="middle">mikrotik</text>
+        <text class="lbl" x="50"  y="222" text-anchor="middle">ospf</text>
+        <text class="lbl" x="220" y="228" text-anchor="middle" fill="#1F3864" style="opacity:.8">core</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="eyebrow">// about</span>
+        <h2 style="font-size:clamp(1.7rem,3.6vw,2.35rem);font-weight:600;margin-bottom:20px">A career built where infrastructure meets people</h2>
+        <p>My work has always come back to one thing: keeping systems — and the people who depend on them — connected. I started out crimping cables and splicing fibre at a Cisco Networking Academy in Benin City, then spent three years in the network operations centre of one of Africa's largest solar-powered ISPs, configuring BGP sessions and bringing new base stations online for a network serving millions.</p>
+        <p>Since moving to the UK I've completed an MSc in Big Data Technologies while working front-line support roles — which means I've also been the calm voice at 2am when something broke. Along the way I've reconciled millions in revenue records, built data pipelines on Google Cloud, and written more setup guides and runbooks than I can count.</p>
+        <p class="pull">I'm drawn to problems that sit between networks, data and cloud — and I try to leave everything better documented than I found it.</p>
+      </div>
+      <div class="factlist reveal">
+        <div><b>Based in</b>Glasgow, United Kingdom</div>
+        <div><b>Education</b>MSc Big Data Technologies — Glasgow Caledonian (2025)</div>
+        <div><b>Foundation</b>BSc Computer Science — Babcock University</div>
+        <div><b>Member</b>BCS, The Chartered Institute for IT</div>
+        <div><b>Open to</b>Network / NOC · IT support · Data · Cloud</div>
+        <div><b>Languages</b>English</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">// skills</span>
+      <h2>What I work with</h2>
+      <p>Grouped by domain. Everything here is backed by the projects and roles below — not a wish list.</p>
+    </div>
+    <div class="skillgrid">
+      <div class="skillcard reveal">
+        <h3>Networking</h3>
+        <div class="tags">
+          <span class="tag">BGP</span><span class="tag">OSPF</span><span class="tag">EIGRP</span><span class="tag">VLANs</span><span class="tag">VPNs</span><span class="tag">NAT</span><span class="tag">IPv4/IPv6</span><span class="tag">MikroTik</span><span class="tag">Ubiquiti</span><span class="tag">Fibre splicing</span><span class="tag">P2P wireless</span><span class="tag">NOC monitoring</span>
+        </div>
+      </div>
+      <div class="skillcard reveal">
+        <h3>IT support &amp; service management</h3>
+        <div class="tags">
+          <span class="tag">1st/2nd line</span><span class="tag">Active Directory</span><span class="tag">Microsoft 365</span><span class="tag">ServiceNow</span><span class="tag">Jira</span><span class="tag">Halo</span><span class="tag">ITIL-aligned</span><span class="tag">Asset management</span><span class="tag">Onboarding</span><span class="tag">GDPR</span>
+        </div>
+      </div>
+      <div class="skillcard reveal">
+        <h3>Cloud &amp; big data</h3>
+        <div class="tags">
+          <span class="tag">GCP</span><span class="tag">BigQuery</span><span class="tag">Cloud Storage</span><span class="tag">Compute Engine</span><span class="tag">App Engine</span><span class="tag">Firestore</span><span class="tag">IAM/IAP</span><span class="tag">AWS</span><span class="tag">S3</span><span class="tag">Glue</span><span class="tag">Redshift</span><span class="tag">Athena</span><span class="tag">Databricks</span><span class="tag">ETL</span>
+        </div>
+      </div>
+      <div class="skillcard reveal">
+        <h3>Data &amp; analytics</h3>
+        <div class="tags">
+          <span class="tag">SQL</span><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">R</span><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">TensorFlow</span><span class="tag">CNNs</span><span class="tag">BigQuery ML</span><span class="tag">EDA</span>
+        </div>
+      </div>
+      <div class="skillcard reveal">
+        <h3>Programming</h3>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">R</span><span class="tag">PHP</span><span class="tag">C/C++</span><span class="tag">Java</span><span class="tag">JavaScript</span><span class="tag">HTML/CSS</span>
+        </div>
+      </div>
+      <div class="skillcard reveal">
+        <h3>Ways of working</h3>
+        <div class="tags">
+          <span class="tag">Documentation</span><span class="tag">Runbooks</span><span class="tag">Incident response</span><span class="tag">SLA tracking</span><span class="tag">Stakeholder comms</span><span class="tag">Shift handovers</span><span class="tag">Training delivery</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">// experience &amp; education</span>
+      <h2>Where I've been</h2>
+      <p>Six years across Nigeria and the UK — network operations, data and support, with study running alongside the work.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-top"><h3>Operations Customer Expert</h3><span class="kind work">work</span><span class="tl-date">Jan 2026 – present</span></div>
+        <div class="tl-org">TP (Teleperformance UK) · Glasgow</div>
+        <p>First-line customer and technical support on a UK client account, working within strict quality and audit frameworks where every case is logged and traceable.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-top"><h3>Guest Service Agent</h3><span class="kind work">work</span><span class="tl-date">Mar 2024 – Jan 2026</span></div>
+        <div class="tl-org">Sandman Signature Glasgow Hotel</div>
+        <p>First response for faults on POS, key-card and guest systems alongside front-desk duties. Reworked the escalation flow between departments — guest satisfaction rose to 95% and complaints fell by roughly a quarter. Held alongside full-time MSc study.</p>
+      </div>
+      <div class="tl-item study reveal">
+        <div class="tl-top"><h3>MSc Big Data Technologies</h3><span class="kind study">study</span><span class="tl-date">Jan 2024 – May 2025</span></div>
+        <div class="tl-org">Glasgow Caledonian University</div>
+        <p>Cloud, big data, IoT, machine learning and data visualisation — all assessed through hands-on builds. Dissertation: an end-to-end audio-database pipeline on Google Cloud.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-top"><h3>Network Operations Engineer</h3><span class="kind work">work</span><span class="tl-date">Nov 2020 – Dec 2023</span></div>
+        <div class="tl-org">Tizeti Network Limited · Lagos — Y Combinator-backed ISP, 3M+ subscribers</div>
+        <p>Monitored a multi-state wireless and fibre network from the NOC, resolving ~85% of critical incidents within SLA. Set up BGP peering at AMS-IX, built MikroTik routers and brought new base stations online end to end (OSPF, VLANs, NAT, firmware, IP allocation), contributing to 25 new sites in 2022. Wrote the team's base-station setup guide and ran weekly KPI reporting.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-top"><h3>Database &amp; IT Analyst</h3><span class="kind work">work</span><span class="tl-date">Oct 2019 – Oct 2020</span></div>
+        <div class="tl-org">SVL-NIG Global Enterprise · Asaba</div>
+        <p>Sole IT support across departments while maintaining the agency's revenue database — tracked demand notices worth over ₦94 million and reconciled payments across 25 local government areas. Monthly reports cut follow-up queries by about 60%.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-top"><h3>IT Officer</h3><span class="kind work">work</span><span class="tl-date">Nov 2018 – Oct 2019</span></div>
+        <div class="tl-org">Delta State Signage &amp; Advertising Agency (DESAA)</div>
+        <p>Ran day-to-day IT across departments — endpoints, printers, routers, VLAN and firewall security — improving system uptime by around 30% and training staff on troubleshooting and security awareness.</p>
+      </div>
+      <div class="tl-item study reveal">
+        <div class="tl-top"><h3>BSc Computer Science</h3><span class="kind study">study</span><span class="tl-date">2014 – 2018</span></div>
+        <div class="tl-org">Babcock University, Nigeria</div>
+        <p>Final-year project: a hotel revenue decision-support system built in PHP/MySQL. Plus four semesters of Cisco Networking Academy (CCNA) training.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-top"><h3>Networking Intern (SIWES)</h3><span class="kind work">work</span><span class="tl-date">May 2017 – Aug 2017</span></div>
+        <div class="tl-org">International ICT Centre, University of Benin</div>
+        <p>Where the networking started: fibre splicing, cable crimping and router/switch/VLAN configuration in a Cisco Academy and Pearson test centre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">// what i've built</span>
+      <h2>Selected projects</h2>
+      <p>A mix of MSc builds, production network engineering and earlier full-stack work. Each one shipped something that ran.</p>
+    </div>
+    <div class="projgrid">
+
+      <div class="proj featured reveal">
+        <div class="meta"><span>audio dsp · python</span><span class="live-badge">live</span></div>
+        <h3>Audio processing portfolio</h3>
+        <p>Four hands-on audio-DSP builds in Python, honestly measured against known ground truth: spectral-gating noise reduction (+9–12 dB SNR), RBJ-biquad EQ and filtering, feature analysis (mel-spectrogram, MFCCs, chromagram), and a batch trim → denoise → normalise pipeline with an FFmpeg spectrogram video. <span class="note">Rebuilds the toolkit behind my dissertation.</span></p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">librosa</span><span class="tag">scipy.signal</span><span class="tag">noisereduce</span><span class="tag">FFmpeg</span></div>
+        <div class="links"><a href="https://peaceojehanon5-maker.github.io/Audio-Video-Production-Specialists/" target="_blank" rel="noopener">View live ↗</a><a href="https://github.com/peaceojehanon5-maker/Audio-Video-Production-Specialists" target="_blank" rel="noopener">Code ↗</a></div>
+      </div>
+
+      <div class="proj featured reveal">
+        <div class="meta"><span>geospatial · pyqgis</span><span class="live-badge">live</span></div>
+        <h3>Geospatial analysis portfolio</h3>
+        <p>Four reproducible map builds scripted end to end with PyQGIS and rendered headlessly: a world GDP-per-capita choropleth, UK settlement-to-airport proximity analysis, a modelled wireless-ISP coverage study for Nigeria (drawn from my NOC years), and a batch continent-atlas generator with machine-readable manifests.</p>
+        <div class="tags"><span class="tag">PyQGIS</span><span class="tag">Python</span><span class="tag">Natural Earth</span><span class="tag">Cartography</span></div>
+        <div class="links"><a href="https://peaceojehanon5-maker.github.io/qgis-portfolio/" target="_blank" rel="noopener">View live ↗</a><a href="https://github.com/peaceojehanon5-maker/qgis-portfolio" target="_blank" rel="noopener">Code ↗</a></div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="meta"><span>data engineering · ml</span><span class="yr">2025</span></div>
+        <h3>Synthesized audio database pipeline</h3>
+        <p>My MSc dissertation: an end-to-end pipeline that ingests video via the YouTube Data API (with deduplication against cloud storage), extracts and cleans the audio, transcribes it with Google Speech-to-Text, and catalogues everything in BigQuery — with output quality scored using SNR, PESQ and STOI. <span class="note">Live real-time integration was deliberately scoped out.</span></p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">GCP</span><span class="tag">BigQuery</span><span class="tag">Cloud Storage</span><span class="tag">Speech-to-Text</span><span class="tag">FFmpeg</span><span class="tag">librosa</span></div>
+        <div class="links"><a href="https://github.com/peaceojehanon5-maker/audio-dataset-pipeline" target="_blank" rel="noopener">Code ↗</a></div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="meta"><span>machine learning</span><span class="yr">2024</span></div>
+        <h3>Image classifier — medicinal herbs</h3>
+        <p>A convolutional neural network classifying 11 categories of Chinese medicinal herbs across 17,000+ images. Built a baseline model, then an enhanced architecture using data augmentation to handle blur, watermarks and class imbalance.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">CNN</span><span class="tag">Data augmentation</span></div>
+        <div class="links"><a href="https://github.com/peaceojehanon5-maker/herb-image-classifier" target="_blank" rel="noopener">Code ↗</a></div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="meta"><span>production network engineering</span><span class="yr">2020–23</span></div>
+        <h3>ISP network operations at scale</h3>
+        <p>Three years keeping a multi-state ISP online for millions of users: BGP peering at AMS-IX on the edge router, MikroTik and OSPF base-station builds, fibre integrations and AirFiber link upgrades, plus the NOC monitoring and KPI reporting that tracked mean-time-to-repair. <span class="note">Professional role — included to show the network depth behind the certs.</span></p>
+        <div class="tags"><span class="tag">BGP</span><span class="tag">OSPF</span><span class="tag">MikroTik</span><span class="tag">Ubiquiti</span><span class="tag">NOC</span><span class="tag">Runbooks</span></div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="meta"><span>data engineering · cloud</span><span class="yr">2024</span></div>
+        <h3>AWS analytics pipeline</h3>
+        <p>An ETL pipeline over a salaries dataset: S3 ingestion, transformation in Glue, a Redshift warehouse, Athena queries and a QuickSight dashboard — with a companion design report comparing Databricks and the major cloud platforms.</p>
+        <div class="tags"><span class="tag">AWS</span><span class="tag">S3</span><span class="tag">Glue</span><span class="tag">Redshift</span><span class="tag">Athena</span><span class="tag">QuickSight</span></div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="meta"><span>iot · cloud</span><span class="yr">2024</span></div>
+        <h3>IoT vehicle telemetry dashboard</h3>
+        <p>A vehicle-monitoring system built with Node-RED and MQTT, persisting telemetry to Firestore with a Google Maps view, deployed to the cloud. Turned a stream of device data into something you could actually watch and act on.</p>
+        <div class="tags"><span class="tag">Node-RED</span><span class="tag">MQTT</span><span class="tag">Firestore</span><span class="tag">GCP</span><span class="tag">Google Maps API</span></div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="meta"><span>data analysis · r</span><span class="yr">2024</span></div>
+        <h3>Top 5,000 albums — exploratory analysis</h3>
+        <p>An exploratory analysis of 5,000 albums in R: a full cleaning pipeline (type correction, missing-value handling, feature derivation), correlation analysis and several visualisation techniques, written up reproducibly in R Markdown.</p>
+        <div class="tags"><span class="tag">R</span><span class="tag">tidyverse</span><span class="tag">ggplot2</span><span class="tag">R Markdown</span></div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="meta"><span>full-stack</span><span class="yr">2018</span></div>
+        <h3>Hotel revenue decision-support system</h3>
+        <p>My BSc final-year project: a working PHP/MySQL web application for hotel revenue management, with booking and room management and dashboards comparing monthly revenue against staff costs. <span class="note">Years before I'd work a hotel front desk myself.</span></p>
+        <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Bootstrap</span><span class="tag">JavaScript</span></div>
+        <div class="links"><a href="https://github.com/peaceojehanon5-maker/hotel-revenue-dss" target="_blank" rel="noopener">Code ↗</a></div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="meta"><span>foundations · c++</span><span class="yr">2015</span></div>
+        <h3>Aso Oke order management app</h3>
+        <p>An early university build: a C++ application for a fabric business, tracking customers, occasions, colours, prices, deposits and balances. The first time I wrote software for a real-world use case rather than an exercise.</p>
+        <div class="tags"><span class="tag">C++</span><span class="tag">File I/O</span><span class="tag">OOP</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CERTIFICATIONS ============ -->
+<section id="certs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">// credentials</span>
+      <h2>Certifications</h2>
+      <p>A selection — the full list of 38 courses and certificates is on LinkedIn.</p>
+    </div>
+    <div class="certgrid">
+      <div class="cert reveal"><span class="yr">2025</span><span class="nm">Professional Member<span class="iss">BCS, The Chartered Institute for IT</span></span></div>
+      <div class="cert reveal"><span class="yr">2023</span><span class="nm">MikroTik Certified Network Associate (MTCNA)<span class="iss">MikroTik · valid to Sep 2026</span></span></div>
+      <div class="cert reveal"><span class="yr">2023</span><span class="nm">Ubiquiti Broadband Wireless Admin<span class="iss">Ubiquiti · valid to Sep 2026</span></span></div>
+      <div class="cert reveal"><span class="yr">2023</span><span class="nm">McKinsey Forward Program<span class="iss">McKinsey &amp; Company</span></span></div>
+      <div class="cert reveal"><span class="yr">2022</span><span class="nm">Zero-to-Certified IPv6 Workshop<span class="iss">AFRINIC</span></span></div>
+      <div class="cert reveal"><span class="yr">2021</span><span class="nm">Google IT Support Specialization<span class="iss">Google · Coursera</span></span></div>
+      <div class="cert reveal"><span class="yr">2020</span><span class="nm">Certified Network Security Specialist (CNSS)<span class="iss">ICSI, UK</span></span></div>
+      <div class="cert reveal"><span class="yr">2020</span><span class="nm">GCP: Core Infrastructure + Big Data &amp; ML<span class="iss">Google Cloud · Coursera</span></span></div>
+      <div class="cert reveal"><span class="yr">2016</span><span class="nm">Oracle Database SQL Certified Expert<span class="iss">Oracle</span></span></div>
+      <div class="cert reveal"><span class="yr">2024</span><span class="nm">SQL Master Class for Data Analysis<span class="iss">Udemy</span></span></div>
+    </div>
+    <p class="certnote">ITIL 4 Foundation — in progress.</p>
+  </div>
+</section>
+
+<!-- ============ WRITING ============ -->
+<section id="writing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">// writing</span>
+      <h2>I write about networks &amp; security</h2>
+      <p>Ten articles published on LinkedIn during my time in network operations. A few of them:</p>
+    </div>
+    <div class="write-list reveal">
+      <a href="https://linkedin.com/in/peace-ojehanon" target="_blank" rel="noopener"><span class="n">01</span><span class="t">Connecting People, Places &amp; Things: A Network Engineer's Guide</span></a>
+      <a href="https://linkedin.com/in/peace-ojehanon" target="_blank" rel="noopener"><span class="n">02</span><span class="t">The Human Firewall: Employees as the First Line of Defense</span></a>
+      <a href="https://linkedin.com/in/peace-ojehanon" target="_blank" rel="noopener"><span class="n">03</span><span class="t">Hacking the Hackers: The Power of Ethical Hacking</span></a>
+      <a href="https://linkedin.com/in/peace-ojehanon" target="_blank" rel="noopener"><span class="n">04</span><span class="t">Securing Networks in the Age of IoT &amp; BYOD</span></a>
+      <a href="https://linkedin.com/in/peace-ojehanon" target="_blank" rel="noopener"><span class="n">05</span><span class="t">Guardians of the Data Vault</span></a>
+      <a href="https://linkedin.com/in/peace-ojehanon" target="_blank" rel="noopener"><span class="n">06</span><span class="t">My Career Journey So Far</span></a>
+    </div>
+    <a href="https://linkedin.com/in/peace-ojehanon" target="_blank" rel="noopener" class="btn">Read all on LinkedIn <span class="arw">↗</span></a>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <span class="eyebrow" style="text-align:center">// get in touch</span>
+    <h2>Let's talk about your network, data or support team</h2>
+    <p>Open to roles across network operations, IT support, data and cloud — in Glasgow or remote.</p>
+    <div class="contact-actions">
+      <a href="mailto:peaceojehanon5@gmail.com" class="btn btn--solid">Email me <span class="arw">↗</span></a>
+      <a href="https://github.com/peaceojehanon5-maker" target="_blank" rel="noopener" class="btn">GitHub <span class="arw">↗</span></a>
+      <a href="https://linkedin.com/in/peace-ojehanon" target="_blank" rel="noopener" class="btn">LinkedIn <span class="arw">↗</span></a>
+      <a href="./Peace_Ojehanon_CV.pdf" class="btn" download>Download CV</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span class="brand">Peace Ojehanon<span style="color:var(--amber)">.</span></span>
+    <span class="mono">Glasgow, UK · peaceojehanon5@gmail.com</span>
+    <span class="mono"><a href="https://github.com/peaceojehanon5-maker" target="_blank" rel="noopener" style="color:var(--muted);border-bottom:1px solid var(--line)">github.com/peaceojehanon5-maker</a></span>
+  </div>
+</footer>
+
+<script>
+/* progressive enhancement only — site is fully readable without JS */
+(function(){
+  var header=document.querySelector('header');
+  var nav=document.getElementById('nav');
+  var menuBtn=document.querySelector('.menu-btn');
+  var links=[].slice.call(document.querySelectorAll('.navlinks a'));
+
+  // sticky header background
+  function onScroll(){header.classList.toggle('scrolled',window.scrollY>10);}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // mobile menu
+  menuBtn.addEventListener('click',function(){
+    var open=nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded',open);
+  });
+  links.forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');menuBtn.setAttribute('aria-expanded',false);});});
+
+  // scroll reveal
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  }else{
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('is-visible');});
+  }
+
+  // active section in nav
+  var sections=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+  if('IntersectionObserver' in window && sections.length){
+    var spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var id='#'+e.target.id;
+          links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')===id);});
+        }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    sections.forEach(function(s){spy.observe(s);});
+  }
+})();
+</script>
+</body>
+</html>
