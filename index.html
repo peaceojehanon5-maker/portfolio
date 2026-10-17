@@ -101,22 +101,8 @@ header.scrolled{background:rgba(245,245,241,.82);backdrop-filter:blur(10px);bord
 .statusbar b{color:var(--navy);font-weight:500}
 .statusbar .sep{color:var(--amber)}
 
-/* topology diagram */
-.topo{width:100%;height:auto;max-width:440px;margin-left:auto;display:block}
-.topo .lnk{stroke:var(--navy-soft);stroke-width:1.4;opacity:.32;fill:none}
-.topo .lnk.d{stroke-dasharray:4 5}
-.topo .node{fill:#fff;stroke:var(--navy);stroke-width:1.6}
-.topo .hub{fill:var(--navy);stroke:none}
-.topo .live{fill:var(--amber-bright);stroke:none}
-.topo .lbl{font-family:"IBM Plex Mono",monospace;font-size:8.5px;fill:var(--navy-soft);opacity:.62;letter-spacing:.02em}
-.topo .halo{fill:var(--amber-bright);opacity:.0}
-@media (prefers-reduced-motion: no-preference){
-  .topo .halo{animation:pulse 2.8s ease-in-out infinite}
-  .topo .halo.h2{animation-delay:.9s}
-  .topo .halo.h3{animation-delay:1.7s}
-}
-@keyframes pulse{0%,100%{opacity:0;transform:scale(.6)}45%{opacity:.5;transform:scale(1.25)}}
-.topo .halo{transform-box:fill-box;transform-origin:center}
+/* hero photo */
+.hero-img{width:100%;max-width:440px;aspect-ratio:4/5;height:auto;object-fit:cover;border-radius:var(--radius);margin-left:auto;display:block;border:1px solid var(--line);box-shadow:0 18px 40px rgba(22,32,43,.16)}
 
 /* ---------- generic section ---------- */
 section{padding:62px 0;border-top:1px solid var(--line)}
@@ -135,6 +121,7 @@ section{padding:62px 0;border-top:1px solid var(--line)}
 .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
 .about p{margin-bottom:16px;max-width:62ch}
 .about .pull{font-family:"Space Grotesk";font-weight:500;color:var(--navy);font-size:1.05rem;line-height:1.5}
+.about-img{width:100%;aspect-ratio:3/2;height:auto;object-fit:cover;border-radius:var(--radius);border:1px solid var(--line);display:block;margin-bottom:22px}
 .factlist{font-family:"IBM Plex Mono",monospace;font-size:.86rem;border-left:2px solid var(--amber);padding-left:18px;align-self:start}
 .factlist div{padding:7px 0;color:var(--muted)}
 .factlist b{color:var(--navy);font-weight:500;display:block;font-size:.78rem;letter-spacing:.03em}
@@ -149,6 +136,7 @@ section{padding:62px 0;border-top:1px solid var(--line)}
 .tag{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--navy);background:#EEF1F6;border:1px solid #E0E5EE;border-radius:7px;padding:4px 9px}
 
 /* ---------- timeline ---------- */
+.band-img{width:100%;height:200px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--line);display:block;margin:-6px 0 40px}
 .timeline{position:relative;margin-left:6px}
 .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
 .tl-item{position:relative;padding:0 0 30px 38px}
@@ -209,7 +197,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 /* ---------- responsive ---------- */
 @media (max-width:860px){
   .hero-grid{grid-template-columns:1fr;gap:28px}
-  .topo{max-width:340px;margin:0 auto}
+  .hero-img{max-width:360px;aspect-ratio:4/3;margin:0 auto}
   .about-grid{grid-template-columns:1fr;gap:26px}
   .skillgrid,.projgrid,.certgrid,.write-list{grid-template-columns:1fr}
   .navlinks{position:fixed;inset:64px 0 auto 0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:8px 24px 18px;display:none}
@@ -264,40 +252,7 @@ a:focus-visible,.btn:focus-visible,.menu-btn:focus-visible{outline:3px solid var
       </div>
     </div>
     <div>
-      <svg class="topo" viewBox="0 0 440 380" role="img" aria-label="A network topology diagram: a central core node linked to nodes labelled fibre, base station, NOC, AMS-IX, MikroTik and OSPF, with several links shown as live.">
-        <!-- links -->
-        <path class="lnk" d="M220 190 L95 90"/>
-        <path class="lnk" d="M220 190 L355 80"/>
-        <path class="lnk" d="M220 190 L385 215"/>
-        <path class="lnk d" d="M220 190 L300 320"/>
-        <path class="lnk" d="M220 190 L120 315"/>
-        <path class="lnk d" d="M220 190 L62 200"/>
-        <path class="lnk d" d="M95 90 L355 80"/>
-        <path class="lnk d" d="M385 215 L355 80"/>
-        <path class="lnk d" d="M120 315 L300 320"/>
-        <!-- halos for live nodes -->
-        <circle class="halo" cx="355" cy="80" r="13"/>
-        <circle class="halo h2" cx="300" cy="320" r="13"/>
-        <circle class="halo h3" cx="62" cy="200" r="13"/>
-        <!-- nodes -->
-        <circle class="node" cx="95" cy="90" r="8"/>
-        <circle class="live" cx="355" cy="80" r="8"/>
-        <circle class="node" cx="385" cy="215" r="8"/>
-        <circle class="live" cx="300" cy="320" r="8"/>
-        <circle class="node" cx="120" cy="315" r="8"/>
-        <circle class="live" cx="62" cy="200" r="8"/>
-        <!-- hub -->
-        <circle class="hub" cx="220" cy="190" r="21"/>
-        <circle cx="220" cy="190" r="7" fill="#fff"/>
-        <!-- labels -->
-        <text class="lbl" x="95"  y="74"  text-anchor="middle">fibre</text>
-        <text class="lbl" x="355" y="64"  text-anchor="middle">base&#8202;stn</text>
-        <text class="lbl" x="402" y="218" text-anchor="start">noc</text>
-        <text class="lbl" x="300" y="342" text-anchor="middle">ams-ix</text>
-        <text class="lbl" x="120" y="337" text-anchor="middle">mikrotik</text>
-        <text class="lbl" x="50"  y="222" text-anchor="middle">ospf</text>
-        <text class="lbl" x="220" y="228" text-anchor="middle" fill="#1F3864" style="opacity:.8">core</text>
-      </svg>
+      <img class="hero-img" src="./img/hero-network.jpg" alt="Network switch with patch cables connected to its ports" width="440" height="550">
     </div>
   </div>
 </section>
@@ -313,13 +268,16 @@ a:focus-visible,.btn:focus-visible,.menu-btn:focus-visible{outline:3px solid var
         <p>Since moving to the UK I've completed an MSc in Big Data Technologies while working front-line support roles. Along the way I've tracked demand notices worth over ₦94 million and reconciled payments against bank statements, built a rerun-safe audio data pipeline on Google Cloud for my dissertation, and rewritten and maintained my NOC team's base station setup guides.</p>
         <p class="pull">I'm drawn to problems that sit between networks, data and cloud, and I try to leave everything better documented than I found it.</p>
       </div>
-      <div class="factlist reveal">
+      <div class="reveal">
+        <img class="about-img" src="./img/about-data.jpg" alt="Analytics dashboard with charts on a laptop screen" width="420" height="280" loading="lazy">
+        <div class="factlist">
         <div><b>Based in</b>Glasgow, United Kingdom</div>
         <div><b>Education</b>MSc Big Data Technologies (Merit), Glasgow Caledonian University, 2025</div>
         <div><b>Foundation</b>BSc Computer Science (2:1), Babcock University</div>
         <div><b>Member</b>BCS, The Chartered Institute for IT</div>
         <div><b>Open to</b>Network / NOC · IT support · Data · Cloud</div>
         <div><b>Languages</b>English</div>
+        </div>
       </div>
     </div>
   </div>
@@ -382,6 +340,7 @@ a:focus-visible,.btn:focus-visible,.menu-btn:focus-visible{outline:3px solid var
       <h2>Where I've been</h2>
       <p>Network operations, data and support work across Nigeria and the UK, with study running alongside it.</p>
     </div>
+    <img class="band-img reveal" src="./img/band-patch-panel.jpg" alt="Blue network cables in a patch panel" width="1080" height="200" loading="lazy">
     <div class="timeline">
       <div class="tl-item reveal">
         <div class="tl-top"><h3>Operations Customer Expert</h3><span class="kind work">work</span><span class="tl-date">Jan 2026 to present</span></div>
@@ -558,6 +517,7 @@ a:focus-visible,.btn:focus-visible,.menu-btn:focus-visible{outline:3px solid var
   <div class="wrap foot">
     <span class="brand">Peace Ojehanon<span style="color:var(--amber)">.</span></span>
     <span class="mono">Glasgow, UK · peaceojehanon5@gmail.com</span>
+    <span class="mono">Photos: Albert Stoynov, Luke Chesser and Jordan Harrison on Unsplash</span>
     <span class="mono"><a href="https://github.com/peaceojehanon5-maker" target="_blank" rel="noopener" style="color:var(--muted);border-bottom:1px solid var(--line)">github.com/peaceojehanon5-maker</a></span>
   </div>
 </footer>
